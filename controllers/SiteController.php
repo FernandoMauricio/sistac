@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use SoapClient;
+use SimpleXMLElement;
 
 class SiteController extends Controller
 {
@@ -61,24 +63,35 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $client = new \mongosoft\soapclient\Client([
-            'url' => 'http://www.mira.senac.br/wsAM/wsMira.asmx?wsdl',
-        ]);
+      $soapClient = new SoapClient("http://www.mira.senac.br/wsAM/wsMira.asmx?wsdl",
+          array( 
+                "trace"      => 1,
+                "exceptions" => 0,
+                "cache_wsdl" => 0,
+                'soap_version'=> SOAP_1_2,
+                'encoding'=>'UTF-8')
+                );
 
-        $client->pesquisaDadosDeTurmasParaPublicarNaInternetParametros(['Area' => '0',
+      $service_param = [ 
+                'Area' => '0',
                 'Localidade' => '', 
                 'CodigoTurma' => '0',
                 'Curso' => '0',
                 'Ano' => 2017,
-                'Situacao' => 1]);
+                'Situacao' => 1
+      ];
 
-         \Yii::$app->response->format = Response::FORMAT_XML;
-         new SimpleXMLElement(str_replace("&#x0;","", $soapClient->__getLastResponse()));
+      $response = $soapClient->__call("pesquisaDadosDeTurmasParaPublicarNaInternetParametros", 
+               array($service_param));
 
-     echo $resultado = $xml->xpath("//Table");
+      $xml = new SimpleXMLElement(str_replace("&#x0;","", $soapClient->__getLastResponse()));
+
+      $model = $xml->xpath("//Table");
 
 
-        return $this->render('index');
+        return $this->render('index', [
+            'model' => $model
+        ]);
     }
 
     /**

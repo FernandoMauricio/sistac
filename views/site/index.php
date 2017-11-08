@@ -17,6 +17,11 @@ $this->title = 'My Yii Application';
     <div class="body-content">
 
         <div class="row">
+
+            <?php foreach ($model as $value) {
+                 echo $value->TURMA;
+                }
+            ?>
             <div class="col-lg-4">
                 <h2>Heading</h2>
 
