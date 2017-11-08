@@ -61,6 +61,23 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $client = new \mongosoft\soapclient\Client([
+            'url' => 'http://www.mira.senac.br/wsAM/wsMira.asmx?wsdl',
+        ]);
+
+        $client->pesquisaDadosDeTurmasParaPublicarNaInternetParametros(['Area' => '0',
+                'Localidade' => '', 
+                'CodigoTurma' => '0',
+                'Curso' => '0',
+                'Ano' => 2017,
+                'Situacao' => 1]);
+
+         \Yii::$app->response->format = Response::FORMAT_XML;
+         new SimpleXMLElement(str_replace("&#x0;","", $soapClient->__getLastResponse()));
+
+     echo $resultado = $xml->xpath("//Table");
+
+
         return $this->render('index');
     }
 

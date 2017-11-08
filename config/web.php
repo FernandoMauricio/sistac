@@ -12,6 +12,18 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        // 'siteApi' => [
+        // 'class' => 'mongosoft\soapclient\Client',
+        // 'url' => 'http://www.mira.senac.br/wsam/',
+        // 'options' => [
+        //         'cache_wsdl'  => WSDL_CACHE_NONE,
+        //        'trace'        => 1,
+        //        'exceptions'   => 0,
+        //        'cache_wsdl'   => 0,
+        //        'soap_version' => SOAP_1_2,
+        //        'encoding'     =>'UTF-8'
+        //     ],
+        // ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'wKabZmVvU0rGWtfsMV2BaJr6C7xAGMTB',
