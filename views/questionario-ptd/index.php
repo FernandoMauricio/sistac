@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\avaliacoes\AvaliacoesSearch */
+/* @var $searchModel app\models\questptd\QuestionarioPtdSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Avaliacoes';
+$this->title = 'Questionario Ptds';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="avaliacoes-index">
+<div class="questionario-ptd-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Avaliacoes', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Questionario Ptd', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,17 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_avaliacao',
-            'aval_curso',
-            'aval_turma',
-            'aval_unidadecurricular',
-            'aval_unidade',
-            // 'aval_supervisor',
-            // 'categoria_id',
-            // 'aval_avaliado:ntext',
-            // 'aval_status',
-            // 'aval_responsavel',
-            // 'aval_data',
+            'id_questionario_ptd',
+            'questptd_unidade',
+            'questptd_curso',
+            'questptd_docente',
+            'questionario_ptdcol',
+            // 'questptd_supervisor',
+            // 'questptd_responsavel',
+            // 'questptd_data',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\avaliacoes\Avaliacoes;
-use app\models\avaliacoes\AvaliacoesSearch;
+use app\models\questionarios\Questionarios;
+use app\models\questionarios\QuestionariosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AvaliacoesController implements the CRUD actions for Avaliacoes model.
+ * QuestionariosController implements the CRUD actions for Questionarios model.
  */
-class AvaliacoesController extends Controller
+class QuestionariosController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class AvaliacoesController extends Controller
     }
 
     /**
-     * Lists all Avaliacoes models.
+     * Lists all Questionarios models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AvaliacoesSearch();
+        $searchModel = new QuestionariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class AvaliacoesController extends Controller
     }
 
     /**
-     * Displays a single Avaliacoes model.
+     * Displays a single Questionarios model.
      * @param integer $id
      * @return mixed
      */
@@ -57,16 +57,16 @@ class AvaliacoesController extends Controller
     }
 
     /**
-     * Creates a new Avaliacoes model.
+     * Creates a new Questionarios model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Avaliacoes();
+        $model = new Questionarios();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_avaliacao]);
+            return $this->redirect(['view', 'id' => $model->id_questionario]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,7 +75,7 @@ class AvaliacoesController extends Controller
     }
 
     /**
-     * Updates an existing Avaliacoes model.
+     * Updates an existing Questionarios model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -85,7 +85,7 @@ class AvaliacoesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_avaliacao]);
+            return $this->redirect(['view', 'id' => $model->id_questionario]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -94,7 +94,7 @@ class AvaliacoesController extends Controller
     }
 
     /**
-     * Deletes an existing Avaliacoes model.
+     * Deletes an existing Questionarios model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +107,15 @@ class AvaliacoesController extends Controller
     }
 
     /**
-     * Finds the Avaliacoes model based on its primary key value.
+     * Finds the Questionarios model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Avaliacoes the loaded model
+     * @return Questionarios the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Avaliacoes::findOne($id)) !== null) {
+        if (($model = Questionarios::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

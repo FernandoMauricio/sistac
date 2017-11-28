@@ -1,8 +1,10 @@
 <?php
 
-namespace app\models;
+namespace app\models\avaliacoes;
 
 use Yii;
+
+use app\models\categoriaquestionarios\CategoriaQuestionarios;
 
 /**
  * This is the model class for table "avaliacoes".

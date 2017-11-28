@@ -1,14 +1,14 @@
 <?php
 
-namespace app\models;
+namespace app\models\avaliacoes;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Avaliacoes;
+use app\models\avaliacoes\Avaliacoes;
 
 /**
- * AvaliacoesSearch represents the model behind the search form about `app\models\Avaliacoes`.
+ * AvaliacoesSearch represents the model behind the search form about `app\models\avaliacoes\Avaliacoes`.
  */
 class AvaliacoesSearch extends Avaliacoes
 {
