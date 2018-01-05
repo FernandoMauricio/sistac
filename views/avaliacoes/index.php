@@ -25,11 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id_avaliacao',
-            'aval_curso',
             'aval_turma',
             'aval_unidadecurricular',
             'aval_unidade',
-            // 'aval_supervisor',
+            'aval_supervisor',
             // 'categoria_id',
             // 'aval_avaliado:ntext',
             // 'aval_status',

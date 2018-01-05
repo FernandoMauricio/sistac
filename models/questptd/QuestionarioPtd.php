@@ -46,14 +46,14 @@ class QuestionarioPtd extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_questionario_ptd' => 'Id Questionario Ptd',
-            'questptd_unidade' => 'Questptd Unidade',
-            'questptd_curso' => 'Questptd Curso',
-            'questptd_docente' => 'Questptd Docente',
+            'id_questionario_ptd' => 'Id',
+            'questptd_unidade' => 'Unidade',
+            'questptd_curso' => 'Curso',
+            'questptd_docente' => 'Docente',
             'questionario_ptdcol' => 'Questionario Ptdcol',
-            'questptd_supervisor' => 'Questptd Supervisor',
-            'questptd_responsavel' => 'Questptd Responsavel',
-            'questptd_data' => 'Questptd Data',
+            'questptd_supervisor' => 'Supervisor',
+            'questptd_responsavel' => 'Responsavel',
+            'questptd_data' => 'Data',
         ];
     }
 

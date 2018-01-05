@@ -48,15 +48,15 @@ class QuestionarioAluno extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'questaluno_id' => 'Questaluno ID',
-            'questaluno_unidade' => 'Questaluno Unidade',
-            'questaluno_cpf' => 'Questaluno Cpf',
-            'questaluno_nome' => 'Questaluno Nome',
-            'questaluno_curso' => 'Questaluno Curso',
-            'questaluno_unidadecurricular' => 'Questaluno Unidadecurricular',
-            'questaluno_docente' => 'Questaluno Docente',
-            'questaluno_responsavel' => 'Questaluno Responsavel',
-            'questaluno_data' => 'Questaluno Data',
+            'questaluno_id' => 'ID',
+            'questaluno_unidade' => 'Unidade',
+            'questaluno_cpf' => 'Cpf',
+            'questaluno_nome' => 'Nome',
+            'questaluno_curso' => 'Curso',
+            'questaluno_unidadecurricular' => 'Unidade curricular',
+            'questaluno_docente' => 'Docente',
+            'questaluno_responsavel' => 'Responsavel',
+            'questaluno_data' => 'Data',
         ];
     }
 

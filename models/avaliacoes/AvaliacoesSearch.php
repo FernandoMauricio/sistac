@@ -18,7 +18,7 @@ class AvaliacoesSearch extends Avaliacoes
     public function rules()
     {
         return [
-            [['id_avaliacao', 'aval_curso', 'categoria_id'], 'integer'],
+            [['id_avaliacao','categoria_id'], 'integer'],
             [['aval_turma', 'aval_unidadecurricular', 'aval_unidade', 'aval_supervisor', 'aval_avaliado', 'aval_status', 'aval_responsavel', 'aval_data'], 'safe'],
         ];
     }
@@ -60,7 +60,6 @@ class AvaliacoesSearch extends Avaliacoes
         // grid filtering conditions
         $query->andFilterWhere([
             'id_avaliacao' => $this->id_avaliacao,
-            'aval_curso' => $this->aval_curso,
             'categoria_id' => $this->categoria_id,
             'aval_data' => $this->aval_data,
         ]);

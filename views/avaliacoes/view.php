@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id_avaliacao',
-            'aval_curso',
             'aval_turma',
             'aval_unidadecurricular',
             'aval_unidade',

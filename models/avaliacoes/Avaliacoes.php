@@ -39,8 +39,8 @@ class Avaliacoes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['aval_curso', 'aval_turma', 'aval_unidadecurricular', 'aval_unidade', 'aval_supervisor', 'categoria_id', 'aval_status', 'aval_responsavel', 'aval_data'], 'required'],
-            [['aval_curso', 'categoria_id'], 'integer'],
+            [['aval_turma', 'aval_unidadecurricular', 'aval_unidade', 'aval_supervisor', 'categoria_id', 'aval_status', 'aval_responsavel', 'aval_data'], 'required'],
+            [['categoria_id'], 'integer'],
             [['aval_avaliado'], 'string'],
             [['aval_data'], 'safe'],
             [['aval_turma', 'aval_unidadecurricular', 'aval_unidade', 'aval_supervisor', 'aval_responsavel'], 'string', 'max' => 255],
@@ -56,7 +56,6 @@ class Avaliacoes extends \yii\db\ActiveRecord
     {
         return [
             'id_avaliacao' => 'Id Avaliacao',
-            'aval_curso' => 'Aval Curso',
             'aval_turma' => 'Aval Turma',
             'aval_unidadecurricular' => 'Aval Unidadecurricular',
             'aval_unidade' => 'Aval Unidade',

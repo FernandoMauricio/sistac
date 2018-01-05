@@ -2,20 +2,43 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker;
 use yii\helpers\ArrayHelper;
 use app\models\categoriaquestionarios\Categoriaquestionarios;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\avaliacoes\Avaliacoes */
 /* @var $form yii\widgets\ActiveForm */
+
+        $soapClient = new SoapClient("http://www.mira.senac.br/wsAM/wsMira.asmx?wsdl",
+            array( 
+                  "trace"      => 1,
+                  "exceptions" => 0,
+                  "cache_wsdl" => 0,
+                  'soap_version'=> SOAP_1_2,
+                  'encoding'=>'UTF-8'
+              ));
+
+        $service_param = [ 
+  
+        ];
+
+        $response = $soapClient->__call("pesquisaUnidadesOperativas", 
+                 array($service_param));
+
+        $xml = new SimpleXMLElement(str_replace("&#x0;","", $soapClient->__getLastResponse()));
+
+        $mira = $xml->xpath("//Table");
+
 ?>
+
 <script type="text/javascript" src="/sistac/web/jquery-1.4.1.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function()
             {
-                $("#unidade").change(function(){
-                    var cidade=$(this).val();
-                    var dataString = 'cidade='+ cidade;
+                $("#avaliacoes-aval_unidade").change(function(){
+                    var turma=$(this).val();
+                    var dataString = 'turma='+ turma;
                 
                     $.ajax
                     ({
@@ -25,13 +48,13 @@ use app\models\categoriaquestionarios\Categoriaquestionarios;
                         cache: false,
                         success: function(html)
                         {
-                            $("#curso").html(html);
+                            $("#avaliacoes-aval_turma").html(html);
                         } 
                     });
                 });
                 
                 
-                $("#curso").change(function(){
+                $("#avaliacoes-aval_turma").change(function(){
                     var avaliacao=$(this).val();
                     var dataString = 'avaliacao='+ avaliacao;
                 
@@ -43,62 +66,52 @@ use app\models\categoriaquestionarios\Categoriaquestionarios;
                         cache: false,
                         success: function(html)
                         {
-                            $("#avaliacao").html(html);
+                            $("#avaliacoes-aval_unidadecurricular").html(html);
                         } 
                     });
                 });
                 
             });
-        </script>
+    </script>
+
 
 <div class="avaliacoes-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-     <div class="col-*-*">
-        <div class="form-group">
-          <label for="sel1">Selecione a Unidade:</label>
-          <select class="form-control" name="unidade" id="unidade">
+
+    <div class="form-group field-avaliacoes-aval_unidade required">
+        <label class="control-label" for="avaliacoes-aval_unidade">Curso</label>
+        <select class="form-control" id="avaliacoes-aval_unidade" class="form-control" name="Avaliacoes[aval_unidade]" ">
             <option selected="selected">Selecione a unidade</option>
-            <option value="Manaus|2">CENTRO DE INFORMÁTICA - CIN</option>
-            <option value="Manaus|3">CEP - PF</option>
-            <option value="Manaus|4">CTH</option>
-            <option value="Manaus|5>">CEP - JT</option>
-            <option value="Manacapuru|6">CEP - LSR</option>
-            <option value="Itacoatiara|7">CEP - MBI</option>
-            <option value="Parintins|11">CEP - MPR</option>
-            <option value="Tefé|13">CEP - LB</option>
+            <?php foreach ($mira as $miras): ?>
+                <option value="<?= $miras->UO ?>"><?= $miras->NOME ?></option>
+            <?php endforeach ?>
           </select>
-        </div>
+        <div class="help-block"></div>
     </div>
 
-    <div class="col-*-*">
-        <div class="form-group">
-          <label for="sel1">Selecione o Curso:</label>
-          <select class="form-control" id="curso" name="curso">
+    <div class="form-group field-avaliacoes-aval_turma required">
+        <label class="control-label" for="avaliacoes-aval_turma">Turma</label>
+        <select class="form-control" id="avaliacoes-aval_turma" class="form-control" name="Avaliacoes[aval_turma]">
             <option value="" selected="selected">Selecione o Curso</option>
-          </select>
-        </div>
-    </div>
-<!-- 
-    <?= $form->field($model, 'aval_turma')->textInput(['maxlength' => true]) ?>
- -->
+        </select>
 
-     <div class="col-*-*">
-        <div class="form-group">
-          <label for="sel1">Unidade Curricular</label>
-          <select class="form-control" id="avaliacao" name="avaliacao">
+        <div class="help-block"></div>
+    </div>
+
+    <div class="form-group field-avaliacoes-aval_unidadecurricular required">
+        <label class="control-label" for="avaliacoes-aval_unidadecurricular">Unidade curricular</label>
+          <select class="form-control" id="avaliacoes-aval_unidadecurricular" class="form-control" name="Avaliacoes[aval_unidadecurricular]" >
             <option value="" selected="selected">Unidade Curricular</option>
           </select>
-        </div>
-    </div>
-
- <!--    <?= $form->field($model, 'aval_unidadecurricular')->textInput(['maxlength' => true]) ?> -->
+    </div> 
 
 
     <?= $form->field($model, 'aval_supervisor')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'categoria_id')->dropDownList(ArrayHelper::map(Categoriaquestionarios::find()->all(), 'id', 'descricao'),['prompt' => 'Selecione aqui a categoria']); ?>
+    <?= $form->field($model, 'categoria_id')->dropDownList(ArrayHelper::map(
+        Categoriaquestionarios::find()->all(), 'id', 'descricao'),['prompt' => 'Selecione aqui a categoria']); ?>
 
     <?= $form->field($model, 'aval_avaliado')->textarea(['rows' => 6]) ?>
 
@@ -106,7 +119,15 @@ use app\models\categoriaquestionarios\Categoriaquestionarios;
 
     <?= $form->field($model, 'aval_responsavel')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'aval_data')->textInput() ?>
+
+    <?=  $form-> field($model, 'aval_data')->widget(DatePicker::classname(), [
+                'options' => ['placeholder' => 'Data'],
+                'pluginOptions' => [
+                    'autoclose' => true,
+                    'format' => 'yyyy-mm-dd', 
+                ]
+            ]);
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -115,3 +136,4 @@ use app\models\categoriaquestionarios\Categoriaquestionarios;
     <?php ActiveForm::end(); ?>
 
 </div>
+

@@ -17,15 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_avaliacao') ?>
 
-    <?= $form->field($model, 'aval_curso') ?>
-
     <?= $form->field($model, 'aval_turma') ?>
 
     <?= $form->field($model, 'aval_unidadecurricular') ?>
 
     <?= $form->field($model, 'aval_unidade') ?>
 
-    <?php // echo $form->field($model, 'aval_supervisor') ?>
+    <?= $form->field($model, 'aval_supervisor') ?>
 
     <?php // echo $form->field($model, 'categoria_id') ?>
 

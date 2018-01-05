@@ -46,14 +46,14 @@ class QuestionarioDocente extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'questdocente_id' => 'Questdocente ID',
-            'questdocente_unidade' => 'Questdocente Unidade',
-            'questdocente_curso' => 'Questdocente Curso',
-            'questdocente_docente' => 'Questdocente Docente',
-            'questdocente_periodocurso' => 'Questdocente Periodocurso',
-            'questdocente_supervisor' => 'Questdocente Supervisor',
-            'questdocente_responsavel' => 'Questdocente Responsavel',
-            'questdocente_data' => 'Questdocente Data',
+            'questdocente_id' => 'ID',
+            'questdocente_unidade' => 'Unidade',
+            'questdocente_curso' => 'Curso',
+            'questdocente_docente' => 'Docente',
+            'questdocente_periodocurso' => 'Periodocurso',
+            'questdocente_supervisor' => 'Supervisor',
+            'questdocente_responsavel' => 'Responsavel',
+            'questdocente_data' => 'Data',
         ];
     }
 
