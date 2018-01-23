@@ -35,6 +35,8 @@ class QuestionarioAlunoController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'main-full';
+        
         $searchModel = new QuestionarioAlunoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -51,8 +53,13 @@ class QuestionarioAlunoController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        $itensQuestionarioAlunos = $model->itensQuestionarioAlunos;
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'itensQuestionarioAlunos' => $itensQuestionarioAlunos,
         ]);
     }
 

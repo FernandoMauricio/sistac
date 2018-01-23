@@ -3,8 +3,6 @@
 namespace app\models\itensquestaluno;
 
 use Yii;
-use app\models\questaluno\QuestionarioAluno;
-use app\models\questionarios\Questionarios;
 
 /**
  * This is the model class for table "itens_questionario_aluno".
@@ -13,7 +11,9 @@ use app\models\questionarios\Questionarios;
  * @property string $descricao
  * @property integer $questionario_id
  * @property integer $questionario_aluno
- * @property integer $itens_questionario_resposta
+ * @property integer $itens_resposta_discordo
+ * @property integer $itens_resposta_concparcial
+ * @property integer $itens_resposta_concordo
  *
  * @property QuestionarioAluno $questionarioAluno
  * @property Questionarios $questionario
@@ -34,9 +34,9 @@ class ItensQuestionarioAluno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'descricao', 'questionario_id', 'questionario_aluno', 'itens_questionario_resposta'], 'required'],
-            [['id', 'questionario_id', 'questionario_aluno', 'itens_questionario_resposta'], 'integer'],
+            [['descricao', 'questionario_id', 'questionario_aluno'], 'required'],
             [['descricao'], 'string'],
+            [['questionario_id', 'questionario_aluno', 'itens_resposta_discordo', 'itens_resposta_concparcial', 'itens_resposta_concordo'], 'integer'],
             [['questionario_aluno'], 'exist', 'skipOnError' => true, 'targetClass' => QuestionarioAluno::className(), 'targetAttribute' => ['questionario_aluno' => 'questaluno_id']],
             [['questionario_id'], 'exist', 'skipOnError' => true, 'targetClass' => Questionarios::className(), 'targetAttribute' => ['questionario_id' => 'id_questionario']],
         ];
@@ -52,7 +52,9 @@ class ItensQuestionarioAluno extends \yii\db\ActiveRecord
             'descricao' => 'Descricao',
             'questionario_id' => 'Questionario ID',
             'questionario_aluno' => 'Questionario Aluno',
-            'itens_questionario_resposta' => 'Itens Questionario Resposta',
+            'itens_resposta_discordo' => 'Itens Resposta Discordo',
+            'itens_resposta_concparcial' => 'Itens Resposta Concparcial',
+            'itens_resposta_concordo' => 'Itens Resposta Concordo',
         ];
     }
 

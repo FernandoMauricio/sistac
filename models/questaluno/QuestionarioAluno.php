@@ -4,6 +4,8 @@ namespace app\models\questaluno;
 
 use Yii;
 
+use app\models\itensquestaluno\ItensQuestionarioAluno;
+
 /**
  * This is the model class for table "questionario_aluno".
  *
@@ -11,6 +13,7 @@ use Yii;
  * @property string $questaluno_unidade
  * @property string $questaluno_cpf
  * @property string $questaluno_nome
+ * @property integer $questaluno_codcurso
  * @property string $questaluno_curso
  * @property string $questaluno_unidadecurricular
  * @property string $questaluno_docente
@@ -21,6 +24,10 @@ use Yii;
  */
 class QuestionarioAluno extends \yii\db\ActiveRecord
 {
+    public $discordoTotalmente;
+    public $concordoParcialmente;
+    public $concordoTotalmente;
+
     /**
      * @inheritdoc
      */
@@ -35,7 +42,8 @@ class QuestionarioAluno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['questaluno_unidade', 'questaluno_cpf', 'questaluno_nome', 'questaluno_curso', 'questaluno_unidadecurricular', 'questaluno_docente', 'questaluno_responsavel', 'questaluno_data'], 'required'],
+            [['questaluno_unidade', 'questaluno_cpf', 'questaluno_nome', 'questaluno_codcurso', 'questaluno_curso', 'questaluno_unidadecurricular', 'questaluno_docente', 'questaluno_responsavel', 'questaluno_data'], 'required'],
+            [['questaluno_codcurso', 'discordoTotalmente', 'concordoParcialmente', 'concordoTotalmente'], 'integer'],
             [['questaluno_data'], 'safe'],
             [['questaluno_unidade', 'questaluno_nome', 'questaluno_curso', 'questaluno_unidadecurricular', 'questaluno_docente', 'questaluno_responsavel'], 'string', 'max' => 255],
             [['questaluno_cpf'], 'string', 'max' => 45],
@@ -52,6 +60,7 @@ class QuestionarioAluno extends \yii\db\ActiveRecord
             'questaluno_unidade' => 'Unidade',
             'questaluno_cpf' => 'Cpf',
             'questaluno_nome' => 'Nome',
+            'questaluno_codcurso' => 'Questaluno Codcurso',
             'questaluno_curso' => 'Curso',
             'questaluno_unidadecurricular' => 'Unidade curricular',
             'questaluno_docente' => 'Docente',
@@ -67,4 +76,5 @@ class QuestionarioAluno extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ItensQuestionarioAluno::className(), ['questionario_aluno' => 'questaluno_id']);
     }
+
 }
