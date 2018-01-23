@@ -8,6 +8,7 @@ use app\models\questaluno\QuestionarioAlunoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * QuestionarioAlunoController implements the CRUD actions for QuestionarioAluno model.
@@ -43,6 +44,13 @@ class QuestionarioAlunoController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    //Envia todo o Planejamento para o GPO
+    public function actionEnviarIntervencao() 
+    {
+        return $this->renderAjax('enviar-Intervencao', [
         ]);
     }
 

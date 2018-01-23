@@ -5,6 +5,8 @@ use kartik\grid\GridView;
 use kartik\editable\Editable;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 use app\models\questaluno\QuestionarioAluno;
 use app\models\itensquestaluno\ItensQuestionarioAluno;
@@ -23,28 +25,35 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Novo Questionário Aluno', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::button('Enviar para Intervenção', ['value'=> Url::to('questionario-aluno/enviar-intervencao'), 'class' => 'btn btn-danger', 'id'=>'modalButton']) ?>
     </p>
+
+    <?php
+        Modal::begin([
+            'header' => '<h4>Defina o tipo a ser enviado:</h4>',
+            'id' => 'modal',
+            'size' => 'modal-lg',
+            ]);
+
+        echo "<div id='modalContent'></div>";
+
+        Modal::end();
+   ?>
 
 <?php
 
 $gridColumns = [
-            
+
         [
             'attribute'=>'questaluno_unidade', 
             'width'=>'310px',
             'value'=>function ($model, $key, $index, $widget) { 
                 return $model->questaluno_unidade;
             },
-            'filterType'=>GridView::FILTER_SELECT2,
-            'filterWidgetOptions'=>[
-                'pluginOptions'=>['allowClear'=>true],
-            ],
-            'filterInputOptions'=>['placeholder'=>'Any supplier'],
             'group'=>true,  // enable grouping
             'groupFooter'=>function ($model, $key, $index, $widget) { // Closure method
                 return [
-                    'mergeColumns'=>[[1,3]], // columns to merge in summary
+                    'mergeColumns'=>[[0,3]], // columns to merge in summary
                     'content'=>[             // content to show in each summary cell
                         1=>'Resultado ('. $model->questaluno_codcurso . ' - ' . $model->questaluno_curso . ')',
                         4=>GridView::F_SUM,
@@ -74,12 +83,6 @@ $gridColumns = [
             'value'=>function ($model, $key, $index, $widget) { 
                 return $model->questaluno_curso;
             },
-            'filterType'=>GridView::FILTER_SELECT2,
-            //'filter'=>ArrayHelper::map(Suppliers::find()->orderBy('company_name')->asArray()->all(), 'id', 'company_name'), 
-            'filterWidgetOptions'=>[
-                'pluginOptions'=>['allowClear'=>true],
-            ],
-            'filterInputOptions'=>['placeholder'=>'Selecione o Curso'],
             'group'=>true,  // enable grouping
         ],
 
@@ -89,16 +92,11 @@ $gridColumns = [
             'value'=>function ($model, $key, $index, $widget) { 
                 return $model->questaluno_unidadecurricular;
             },
-            'filterType'=>GridView::FILTER_SELECT2,
-            //'filter'=>ArrayHelper::map(Suppliers::find()->orderBy('company_name')->asArray()->all(), 'id', 'company_name'), 
-            'filterWidgetOptions'=>[
-                'pluginOptions'=>['allowClear'=>true],
-            ],
-            'filterInputOptions'=>['placeholder'=>'Selecione a Unidade Curricular'],
             'group'=>true,  // enable grouping
         ],
 
             'questaluno_nome',
+
             [
                 'attribute'=> 'discordoTotalmente',
                 'value' => function ($model) { return ItensQuestionarioAluno::find()->where(['itens_resposta_discordo' => 1, 'questionario_aluno' => $model->questaluno_id])->count();}
