@@ -16,7 +16,7 @@ use app\models\itensquestaluno\ItensQuestionarioAluno;
 /* @var $searchModel app\models\questaluno\QuestionarioAlunoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Questionario Alunos';
+$this->title = 'Intervencao Pedagogica Alunos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
   }
 </script>
 
-<div class="questionario-aluno-index">
+<div class="intervencao-pedagogica-aluno-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

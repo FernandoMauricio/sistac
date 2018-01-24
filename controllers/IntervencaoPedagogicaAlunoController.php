@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\itensquestaluno\ItensQuestionarioAluno;
-use app\models\itensquestaluno\ItensQuestionarioAlunoSearch;
+use app\models\intervencaopedagogica\IntervencaoPedagogicaAluno;
+use app\models\intervencaopedagogica\IntervencaoPedagogicaAlunoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ItensQuestionarioAlunoController implements the CRUD actions for ItensQuestionarioAluno model.
+ * IntervencaoPedagogicaAlunoController implements the CRUD actions for IntervencaoPedagogicaAluno model.
  */
-class ItensQuestionarioAlunoController extends Controller
+class IntervencaoPedagogicaAlunoController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,14 @@ class ItensQuestionarioAlunoController extends Controller
     }
 
     /**
-     * Lists all ItensQuestionarioAluno models.
+     * Lists all IntervencaoPedagogicaAluno models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ItensQuestionarioAlunoSearch();
+        $this->layout = 'main-full';
+        
+        $searchModel = new IntervencaoPedagogicaAlunoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,9 +47,10 @@ class ItensQuestionarioAlunoController extends Controller
     }
 
     /**
-     * Displays a single ItensQuestionarioAluno model.
+     * Displays a single IntervencaoPedagogicaAluno model.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
@@ -57,47 +60,49 @@ class ItensQuestionarioAlunoController extends Controller
     }
 
     /**
-     * Creates a new ItensQuestionarioAluno model.
+     * Creates a new IntervencaoPedagogicaAluno model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ItensQuestionarioAluno();
+        $model = new IntervencaoPedagogicaAluno();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            return $this->redirect(['view', 'id' => $model->questaluno_id]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Updates an existing ItensQuestionarioAluno model.
+     * Updates an existing IntervencaoPedagogicaAluno model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->redirect(['view', 'id' => $model->questaluno_id]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Deletes an existing ItensQuestionarioAluno model.
+     * Deletes an existing IntervencaoPedagogicaAluno model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
@@ -107,18 +112,18 @@ class ItensQuestionarioAlunoController extends Controller
     }
 
     /**
-     * Finds the ItensQuestionarioAluno model based on its primary key value.
+     * Finds the IntervencaoPedagogicaAluno model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ItensQuestionarioAluno the loaded model
+     * @return IntervencaoPedagogicaAluno the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ItensQuestionarioAluno::findOne($id)) !== null) {
+        if (($model = IntervencaoPedagogicaAluno::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
         }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

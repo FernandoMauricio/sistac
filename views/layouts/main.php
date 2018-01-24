@@ -46,23 +46,11 @@ AppAsset::register($this);
                     ['label' => 'Docente', 'url' => ['/questionario-docente']],
                     ['label' => 'PTD', 'url' => ['/questionario-ptd']],
                     ]],
-                ['label' => 'Itens Questionário',  'items' => [
-                    ['label' => 'Aluno', 'url' => ['/itens-questionario-aluno']],
-                    ['label' => 'Docente', 'url' => ['/itens-questionario-docente']],
-                    ['label' => 'PTD', 'url' => ['/itens-questionario-ptd']],
-                    ]],    
-            // Yii::$app->user->isGuest ? (
-            //     ['label' => 'Login', 'url' => ['/site/login']]
-            // ) : (
-            //     '<li>'
-            //     . Html::beginForm(['/site/logout'], 'post')
-            //     . Html::submitButton(
-            //         'Logout (' . Yii::$app->user->identity->username . ')',
-            //         ['class' => 'btn btn-link logout']
-            //     )
-            //     . Html::endForm()
-            //     . '</li>'
-            // )
+                ['label' => 'Interverções Pedagógicas',  'items' => [
+                    ['label' => 'Aluno', 'url' => ['/intervencao-pedagogica-aluno']],
+                    ['label' => 'Docente', 'url' => ['/intervencao-pedagogica-docente']],
+                    ['label' => 'PTD', 'url' => ['/intervencao-pedagogica-ptd']],
+                    ]],      
         ],
     ]);
     NavBar::end();
