@@ -50,8 +50,24 @@ class QuestionarioAlunoController extends Controller
     //Envia todo o Planejamento para o GPO
     public function actionEnviarIntervencao() 
     {
-        return $this->renderAjax('enviar-Intervencao', [
-        ]);
+
+        foreach ($_POST['keylist'] as $intervencao) {
+                //Inclui as informações dos candidatos classificados
+                Yii::$app->db->createCommand()
+                    ->update('questionario_aluno', [
+                             'situacao_questionario_id' => 2,
+                            ], [//------WHERE
+                    'questaluno_id' => $intervencao
+                    ])
+                    ->execute();
+        }
+
+        Yii::$app->session->setFlash('success', '<strong>SUCESSO! </strong> Turmas enviadas para intervenção Pedagógica!</strong>');
+
+        return $this->redirect(['index']);
+        
+        // return $this->renderAjax('enviar-Intervencao', [
+        // ]);
     }
 
     /**

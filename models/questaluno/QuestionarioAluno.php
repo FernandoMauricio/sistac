@@ -3,8 +3,8 @@
 namespace app\models\questaluno;
 
 use Yii;
-
 use app\models\itensquestaluno\ItensQuestionarioAluno;
+use app\models\SituacaoQuestionario;
 
 /**
  * This is the model class for table "questionario_aluno".
@@ -47,6 +47,7 @@ class QuestionarioAluno extends \yii\db\ActiveRecord
             [['questaluno_data'], 'safe'],
             [['questaluno_unidade', 'questaluno_nome', 'questaluno_curso', 'questaluno_unidadecurricular', 'questaluno_docente', 'questaluno_responsavel'], 'string', 'max' => 255],
             [['questaluno_cpf'], 'string', 'max' => 45],
+            [['situacao_questionario_id'], 'exist', 'skipOnError' => true, 'targetClass' => SituacaoQuestionario::className(), 'targetAttribute' => ['situacao_questionario_id' => 'id']],
         ];
     }
 
@@ -60,12 +61,13 @@ class QuestionarioAluno extends \yii\db\ActiveRecord
             'questaluno_unidade' => 'Unidade',
             'questaluno_cpf' => 'Cpf',
             'questaluno_nome' => 'Nome',
-            'questaluno_codcurso' => 'Questaluno Codcurso',
+            'questaluno_codcurso' => 'Cód. Turma',
             'questaluno_curso' => 'Curso',
             'questaluno_unidadecurricular' => 'Unidade curricular',
             'questaluno_docente' => 'Docente',
             'questaluno_responsavel' => 'Responsavel',
             'questaluno_data' => 'Data',
+            'situacao_questionario_id' => 'Situação',
         ];
     }
 
@@ -75,6 +77,14 @@ class QuestionarioAluno extends \yii\db\ActiveRecord
     public function getItensQuestionarioAlunos()
     {
         return $this->hasMany(ItensQuestionarioAluno::className(), ['questionario_aluno' => 'questaluno_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSituacaoQuestionario()
+    {
+        return $this->hasOne(SituacaoQuestionario::className(), ['id' => 'situacao_questionario_id']);
     }
 
 }

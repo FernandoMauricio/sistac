@@ -19,41 +19,61 @@ use app\models\itensquestaluno\ItensQuestionarioAluno;
 $this->title = 'Questionario Alunos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<script type="text/javascript">
+  // action for all selected rows
+  function submit(){
+    var dialog = confirm("Você tem certeza que deseja enviar esses itens para Intervenção Pedagógica?");
+    if (dialog == true) {
+        var keys = $('#w0').yiiGridView('getSelectedRows');
+         console.log(keys);
+        var ajax = new XMLHttpRequest();
+        $.ajax({
+            type: "POST",
+            url: 'enviar-intervencao', // Your controller action
+            data: {keylist: keys},
+            success: function(result){
+              console.log(result);
+            }
+          });
+    }
+  }
+</script>
+
 <div class="questionario-aluno-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::button('Enviar para Intervenção', ['value'=> Url::to('questionario-aluno/enviar-intervencao'), 'class' => 'btn btn-danger', 'id'=>'modalButton']) ?>
+        <!-- Submit button -->
+        <button type="button" onclick="submit()" class="btn btn-danger">Enviar para Intervenção</button>
     </p>
-
-    <?php
-        Modal::begin([
-            'header' => '<h4>Defina o tipo a ser enviado:</h4>',
-            'id' => 'modal',
-            'size' => 'modal-lg',
-            ]);
-
-        echo "<div id='modalContent'></div>";
-
-        Modal::end();
-   ?>
 
 <?php
 
 $gridColumns = [
 
+        //Checkbox
         [
-            'attribute'=>'questaluno_unidade', 
+            'class' => 'yii\grid\CheckboxColumn',
+            'contentOptions'=>[ 'style'=>'width: 50px'],
+            'name' => 'checked',
+            'checkboxOptions'=> function($model, $key, $index, $column) {
+             return ["value" => $model->questaluno_id];
+            }
+        ],
+
+        [
+            'attribute'=>'questaluno_codcurso', 
             'width'=>'310px',
             'value'=>function ($model, $key, $index, $widget) { 
-                return $model->questaluno_unidade;
+                return $model->questaluno_codcurso;
             },
             'group'=>true,  // enable grouping
             'groupFooter'=>function ($model, $key, $index, $widget) { // Closure method
                 return [
-                    'mergeColumns'=>[[0,3]], // columns to merge in summary
+                    'mergeColumns'=>[[1,4]], // columns to merge in summary
                     'content'=>[             // content to show in each summary cell
                         1=>'Resultado ('. $model->questaluno_codcurso . ' - ' . $model->questaluno_curso . ')',
                         4=>GridView::F_SUM,
@@ -78,12 +98,19 @@ $gridColumns = [
         ],
 
         [
+            'attribute'=>'questaluno_unidade', 
+            'width'=>'310px',
+            'value'=>function ($model, $key, $index, $widget) { 
+                return $model->questaluno_unidade;
+            },
+        ],
+
+        [
             'attribute'=>'questaluno_curso', 
             'width'=>'310px',
             'value'=>function ($model, $key, $index, $widget) { 
                 return $model->questaluno_curso;
             },
-            'group'=>true,  // enable grouping
         ],
 
         [
@@ -96,6 +123,11 @@ $gridColumns = [
         ],
 
             'questaluno_nome',
+
+            [
+                'attribute' => 'situacao_questionario_id',
+                'value' => 'situacaoQuestionario.descricao',
+            ],
 
             [
                 'attribute'=> 'discordoTotalmente',
@@ -151,12 +183,12 @@ $gridColumns = [
     'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
     'headerRowOptions'=>['class'=>'kartik-sheet-style'],
     'filterRowOptions'=>['class'=>'kartik-sheet-style'],
-    'pjax'=>false, // pjax is set to always true for this demo
+    'pjax'=>true, // pjax is set to always true for this demo
 
     'beforeHeader'=>[
         [
             'columns'=>[
-                ['content'=>'Detalhes dos Questionários', 'options'=>['colspan'=>7, 'class'=>'text-center warning']], 
+                ['content'=>'Detalhes dos Questionários', 'options'=>['colspan'=>10, 'class'=>'text-center warning']], 
                 ['content'=>'Área de Ações', 'options'=>['colspan'=>1, 'class'=>'text-center warning']], 
             ],
         ]
@@ -164,7 +196,7 @@ $gridColumns = [
         'hover' => true,
         'panel' => [
         'type'=>GridView::TYPE_PRIMARY,
-        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Pedido de Custo</h3>',
+        'heading'=> '<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i> Listagem - Questionário Alunos</h3>',
     ],
 ]);
     ?>
